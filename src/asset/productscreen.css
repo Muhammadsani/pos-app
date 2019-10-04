@@ -1,0 +1,25 @@
+/* import cartempty from '../asset/empty-cart.svg' */
+.productInCart {
+    background: white;
+    border-bottom: 3px solid #f1f1f1; 
+    border-right: 3px solid #f1f1f1 
+}
+
+.container {
+    background-color: #f5f5f5
+}
+
+.inputSearch {
+    font-family: Arial, FontAwesome
+}
+
+.cartTitle{
+    text-align: center;
+    color: crimson 
+}
+
+.emptyCart{
+    background: url("./empty-cart.svg");
+    background-repeat: no-repeat;
+    background-position: center
+}
