@@ -17,9 +17,11 @@ class ProductCard extends Component {
                         <CardTitle style={{fontWeight:"bold"}}>{this.props.products.name}</CardTitle>
                         <CardSubtitle>Rp.{this.props.products.price}</CardSubtitle>
                         <CardText>{this.props.products.description}</CardText>
+                        <CardText> <small className="text-muted"> Stock: {this.props.products.quantity} </small> </CardText>
+                        <div fontWeight="light"></div>
                         <Button color="success" onClick={() => this.props.addToCart(this.props.products)}>Add to Cart</Button>
                         <Button color="danger" className="mr-2 ml-2" onClick={() => this.props.deleteProduct(this.props.products.id)}><FaEraser /></Button>
-                        <Link to={"/updateproduct/"+ this.props.products.id}><FaEdit /></Link>
+                        <Link to={"/updateproduct/"+ this.props.products.id} className="btn btn-primary"><FaEdit /></Link>
 
                         
                         

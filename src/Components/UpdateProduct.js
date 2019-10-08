@@ -88,7 +88,9 @@ export default class Example extends React.Component {
         window.location.href = "/"
       })
       .catch(error => {
-        console.log(error)
+        console.log(error.response.data.message)
+        alert(error.response.data.message)
+
       });
   }
 

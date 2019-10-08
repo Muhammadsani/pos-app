@@ -82,12 +82,12 @@ class SideNav extends Component {
         )
         .then(result => {
             console.log("success")
+            window.location.href = "/"
         })
         .catch(err => {
             console.log(err.response)
         })
         this.toggle()
-        window.location.href = "/"
     }
 
     render() {

@@ -101,10 +101,20 @@ class ContainerProducts extends Component {
         console.log(this.state.category)
     }
 
-    deleteProduct(id) {
-        axios.delete("/product/" + id)
-        console.log(id)
-        this.getAll()
+    deleteProduct = async (id) => {
+        if (window.confirm('Are you sure want to delete this product?')) {
+
+            await axios.delete("/product/" + id)
+                .then(result => {
+                    console.log(id)
+                    this.getAll()
+                })
+                .catch(error => {
+                    console.log(error.response.data.message)
+                    alert(error.response.data.message)
+                });
+
+        }
     }
 
     toggle() {
@@ -152,14 +162,22 @@ class ContainerProducts extends Component {
                 const index = this.state.cart.findIndex(productCart => productCart.id === product.id)
                 console.log(index)
                 var cart = [...this.state.cart]
-                cart[index].count++
-                cart[index].totalPrice = cart[index].count * cart[index].price
-                const totalPrice = this.state.totalPrice + product.price
-                this.setState({ cart, totalPrice })
+                if (cart[index].count < cart[index].quantity) {
+                    cart[index].count++
+                    cart[index].totalPrice = cart[index].count * cart[index].price
+                    const totalPrice = this.state.totalPrice + product.price
+                    this.setState({ cart, totalPrice })
+                } else {
+                    alert("Sorry, stoctout!")
+                }
             } else {
-                const productWithCountPrice = { ...product, count: 1, totalPrice: product.price }
-                const totalPrice = this.state.totalPrice + product.price
-                this.setState({ cart: [...this.state.cart, productWithCountPrice], totalPrice })
+                if (product.quantity > 0) {
+                    const productWithCountPrice = { ...product, count: 1, totalPrice: product.price }
+                    const totalPrice = this.state.totalPrice + product.price
+                    this.setState({ cart: [...this.state.cart, productWithCountPrice], totalPrice })
+                } else {
+                    alert("Sorry, stoctout!")
+                }
             }
             console.log(this.state.cart)
         }
@@ -252,13 +270,13 @@ class ContainerProducts extends Component {
                     <Col sm="9">
 
                         <InputGroup>
-                        {/* Input Search */}
+                            {/* Input Search */}
                             <Input type="text" placeholder="&#xF002; Search" className="inputSearch" onChange={(e) => this.searchValue(e)} />
                             <InputGroupButtonDropdown className="mr-1 ml-1" addonType="append" isOpen={this.state.dropdownOpenSortType} toggle={this.toggleDropDownSortType}>
                                 <DropdownToggle caret>
                                     {this.state.sorttype}
                                 </DropdownToggle>
-                            {/* Sort Type */}
+                                {/* Sort Type */}
                                 <DropdownMenu>
                                     <DropdownItem onClick={() => this.sortType("asc")}>ASC</DropdownItem>
                                     <DropdownItem onClick={() => this.sortType("desc")}>DESC</DropdownItem>
@@ -308,7 +326,7 @@ class ContainerProducts extends Component {
                             }
                         </Pagination>
                     </Col>
-                    <Col sm="3">
+                    <Col sm="3" className="pr-3" >
                         <span className='text-right'>Total Price: Rp. {this.state.totalPrice} </span>
                         <Button color="success" size="sm" onClick={this.toggleCheckout} block>Checkout</Button>
                         <Button color="danger" size="sm" onClick={(e) => this.cancelCart(e)} block>Cancel</Button>
