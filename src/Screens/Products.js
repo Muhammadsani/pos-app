@@ -5,6 +5,7 @@ import SideNav from '../Components/SideNav'
 import ContainerProducts from '../Components/Products'
 import login from '../Screens/Login'
 import AddProduct from '../Components/AddProduct'
+import UpdateProduct from '../Components/UpdateProduct'
 
 class Products extends Component {
   constructor(props) {
@@ -34,6 +35,7 @@ class Products extends Component {
             <Col sm="11" >
               <Route path='/' component={ContainerProducts} exact />
               <Route path='/login' component={login} />
+              <Route path='/updateproduct/:id' component={UpdateProduct} />
               <Route path='/addproduct' component={AddProduct} />
             </Col>
 

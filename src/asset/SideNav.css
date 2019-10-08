@@ -25,6 +25,10 @@
     color: rgb(12, 128, 12);
   }
   
+  .btnside :hover {
+    color: rgb(12, 128, 12);
+  }
+  
   .sidebar .closebtn {
     position: absolute;
     top: 0;
@@ -39,6 +43,14 @@
     font-size: 26px;
     margin-left: -10px;
     color: crimson;
+  }
+
+  .btnside {
+    background-color: transparent  !important;
+    color: #dc143c !important;
+    font-size: 22px !important;
+    border: none !important;
+    margin-left: 11px !important;
   }
   
   .closebtn {

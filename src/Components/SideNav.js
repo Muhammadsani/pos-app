@@ -103,8 +103,8 @@ class SideNav extends Component {
 
                     <Link to="/" className="sidemenu" ><FaHome /></Link>
                     <Link to="/history" className="sidemenu" ><FaClipboard /></Link>
-                    <Link className="sidemenu" onClick={this.toggle}><FaPlusSquare /></Link>
-                    {(storage.get('token') ? <Link className="sidemenu" onClick={() => this.logout()}><FaSignOutAlt /></Link> : <Link to="/login" className="sidemenu" ><FaSignInAlt /></Link>)}
+                    <Button className="btnside" onClick={this.toggle}><FaPlusSquare /></Button>
+                    {(storage.get('token') ? <Button className="btnside" onClick={() => this.logout()}><FaSignOutAlt /></Button> : <Link to="/login" className="sidemenu" ><FaSignInAlt /></Link>)}
 
                     <div>
                         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} >
@@ -113,7 +113,7 @@ class SideNav extends Component {
                                 <Form method="POST" onSubmit={this.handleSubmit}>
                                     <FormGroup>
                                         <Label for="name">Product Name</Label>
-                                        <Input type="name" name="name" id="name" placeholder="Name" />
+                                        <Input type="text" name="name" id="name" placeholder="Name" />
                                     </FormGroup>
                                     <FormGroup>
                                         <Label for="price">Price</Label>
