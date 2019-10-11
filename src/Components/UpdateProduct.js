@@ -90,6 +90,7 @@ export default class Example extends React.Component {
       .catch(error => {
         console.log(error.response.data.message)
         alert(error.response.data.message)
+        window.location.href = "/login"
 
       });
   }

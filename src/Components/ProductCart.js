@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Media, Button } from 'reactstrap';
+const rupiah = require('rupiah-format')
 
 class ProductCard extends Component {
     render() {
@@ -13,7 +14,7 @@ class ProductCard extends Component {
                         <Media style={{ fontWeight: "bold" }}>
                             {this.props.products.name}
                         </Media>
-                        Rp.{this.props.products.price}
+                        {rupiah.convert(this.props.products.price)}
 
                         <Media>
                             <Media style={{ fontWeight: "bold" }}>

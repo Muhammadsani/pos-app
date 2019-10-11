@@ -4,8 +4,8 @@ import { Container, Row, Col } from 'reactstrap'
 import SideNav from '../Components/SideNav'
 import ContainerProducts from '../Components/Products'
 import login from '../Screens/Login'
-import AddProduct from '../Components/AddProduct'
 import UpdateProduct from '../Components/UpdateProduct'
+import History from '../Components/History'
 
 class Products extends Component {
   constructor(props) {
@@ -30,13 +30,13 @@ class Products extends Component {
             </Col>
           </Row>
           <Row>
-            <Col sm="1">
-            </Col>
-            <Col sm="11" >
+            {/* <Col sm="1">
+            </Col> */}
+            <Col sm="11" className='offset-1 pl-5' >
               <Route path='/' component={ContainerProducts} exact />
               <Route path='/login' component={login} />
               <Route path='/updateproduct/:id' component={UpdateProduct} />
-              <Route path='/addproduct' component={AddProduct} />
+              <Route path='/history' component={History} />
             </Col>
 
           </Row>

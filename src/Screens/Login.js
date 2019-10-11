@@ -30,7 +30,7 @@ class Login extends Component {
             axios.post('/user/login', data)
                 .then((res) => {
                     storage.set('token', res.data.token)
-                    console.log(storage.get.token)
+                    storage.set('email', this.state.email)
 
                     resolve()
                     window.location.href = "/"

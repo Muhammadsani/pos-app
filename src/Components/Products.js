@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import axios from "../Utils/axios"
 import storage from 'local-storage'
 import {
-    Container, Button, Row, Col, Input, InputGroup, Form,
-    Modal, ModalHeader, ModalBody, FormGroup, Label,
+    Container, Button, Row, Col, Input, InputGroup,
+    Modal, ModalHeader, ModalBody,
     DropdownToggle, DropdownMenu, InputGroupButtonDropdown,
     DropdownItem, Pagination, PaginationItem, PaginationLink, ModalFooter
 } from 'reactstrap'
@@ -13,6 +13,10 @@ import ProductsCard from './ProductCard'
 import ProductsCart from './ProductCart'
 import '../asset/productscreen.css'
 
+import { connect } from 'react-redux'
+import { getproducts } from "../Public/Redux/Actions/GetProduct";
+
+const rupiah = require('rupiah-format')
 
 class ContainerProducts extends Component {
     constructor(props) {
@@ -71,21 +75,24 @@ class ContainerProducts extends Component {
 
     getAll = async () => {
         const { search, sort, sorttype, limit, page } = this.state
-        await axios.get(`/product?search=${search}&sort=${sort}&sorttype=${sorttype}&limit=${limit}&page=${page}`)
-            .then(result => {
-                let page = []
-                this.setState({ products: result.data.result })
-                const currentAllpage = Math.ceil(result.data.totalData / this.state.limit)
+        const tes = await getproducts(search, sort, sorttype, limit, page)
+        this.props.dispatch(tes)
+        console.log(this.props)
+        let allpage = []
+        const currentAllpage = Math.ceil(this.props.data.totalData / this.state.limit)
+        for (let i = 0; i < currentAllpage; i++) {
+            allpage.push(i + 1)
+        }
+        this.setState({ allPage: allpage })
+        // await axios.get(`/product?search=${search}&sort=${sort}&sorttype=${sorttype}&limit=${limit}&page=${page}`)
+        //     .then(result => {
+        //         this.setState({ products: result.data.result })
 
-                for (let i = 0; i < currentAllpage; i++) {
-                    page.push(i + 1)
-                }
 
-                this.setState({ allPage: page })
-            })
-            .catch(err => {
-                console.log(err)
-            })
+        //     })
+        //     .catch(err => {
+        //         console.log(err)
+        //     })
         console.log(this.state.products)
         console.log(storage.get('token'))
     }
@@ -117,38 +124,23 @@ class ContainerProducts extends Component {
         }
     }
 
-    toggle() {
-        this.setState(prevState => ({
-            modal: !prevState.modal
-        }));
-    }
-
     toggleCheckout() {
         this.setState(prevState => ({
             modalCheckout: !prevState.modalCheckout
         }));
-        console.log(this.state.modalCheckout)
+        if (!this.state.modalCheckout) {
+            this.checkoutProduct()
+        } else {
+            this.setState({ cart: [], totalPrice: 0 })
+            this.getAll()
+
+        }
     }
 
-    handleSubmit = async (event) => {
-        event.preventDefault()
-
-        const data = new FormData(event.target)
-
-        fetch('http://localhost:3020/product',
-            {
-                method: "POST",
-                body: data
-            }
-        )
-            .then(result => {
-                console.log("success")
-            })
-            .catch(err => {
-                console.log(err.response)
-            })
-        this.toggle()
-        window.location.href = "/"
+    checkoutProduct = () => {
+        let order = { order: this.state.cart, totalPrice: this.state.totalPrice }
+        console.log(order)
+        axios.post('/product/order', order)
     }
 
 
@@ -172,7 +164,7 @@ class ContainerProducts extends Component {
                 }
             } else {
                 if (product.quantity > 0) {
-                    const productWithCountPrice = { ...product, count: 1, totalPrice: product.price }
+                    const productWithCountPrice = { ...product, count: 1, totalPrice: product.price, user: storage.get('email')}
                     const totalPrice = this.state.totalPrice + product.price
                     this.setState({ cart: [...this.state.cart, productWithCountPrice], totalPrice })
                 } else {
@@ -227,7 +219,7 @@ class ContainerProducts extends Component {
 
 
     render() {
-        let productCard = this.state.products.map(product => {
+        let productCard = this.props.data.products.map(product => {
             return (
                 <Col sm="4" key={product.id}>
                     <ProductsCard addToCart={(id) => this.addToCart(id)} deleteProduct={(id) => this.deleteProduct(id)} products={product} />
@@ -247,18 +239,15 @@ class ContainerProducts extends Component {
 
         let productCheckout = this.state.cart.map(product => {
             return (
-                <Row className='productInCheckout'>
+                <Row className='border-bottom'>
                     <Col key={product.id} xs='7'>
                         {product.name}
                     </Col>
                     <Col xs='1'>
                         {product.count}X
                     </Col>
-                    <Col xs='1'>
-                        Rp.
-                    </Col>
-                    <Col xs='3' className='text-right' >
-                        {product.price * product.count}
+                    <Col xs='4' className='text-right' >
+                        {rupiah.convert(product.price * product.count)}
                     </Col>
                 </Row>
             )
@@ -302,7 +291,7 @@ class ContainerProducts extends Component {
                 </Row>
                 <Row>
                     <Col sm="9" >
-                        <Row className="mb-5">
+                        <Row className="mb-5 pb-5">
                             {productCard}
                         </Row>
 
@@ -312,13 +301,14 @@ class ContainerProducts extends Component {
                     </Col>
                 </Row>
 
-                <Row className="fixed-bottom">
-                    <Col sm="9" className="nav justify-conten-center mt-4 pt-3 bg-white">
+                <Row className="fixed-bottom mr-4 ml-5">
+                    <Col sm='1'></Col>
+                    <Col sm="8" className="nav justify-conten-center mt-4 pt-3 bg-white">
                         <Pagination className="m-auto" aria-label="Page navigation example">
                             {
                                 this.state.allPage.map(item => (
-                                    <PaginationItem key={item}>
-                                        <PaginationLink onClick={() => this.pageChange(item)}>
+                                    <PaginationItem key={item} active={item===this.state.page? true: false}> 
+                                        <PaginationLink className={item===this.state.page? "font-weight-bold pageselect": "font-weight-bold" }  onClick={() => this.pageChange(item)}>
                                             {item}
                                         </PaginationLink>
                                     </PaginationItem>
@@ -326,49 +316,17 @@ class ContainerProducts extends Component {
                             }
                         </Pagination>
                     </Col>
-                    <Col sm="3" className="pr-3" >
-                        <span className='text-right'>Total Price: Rp. {this.state.totalPrice} </span>
-                        <Button color="success" size="sm" onClick={this.toggleCheckout} block>Checkout</Button>
-                        <Button color="danger" size="sm" onClick={(e) => this.cancelCart(e)} block>Cancel</Button>
+                    <Col sm="3" className="pr-4" >
+                        <Row>
+                            <Col className='text-left'> Total Price:</Col>
+                            <Col className='text-right'> {rupiah.convert(this.state.totalPrice)}</Col>
+                        </Row>
+                        <Row className='pl-2'>
+                            <Button color="success" size="sm" onClick={this.toggleCheckout} block>Checkout</Button>
+                            <Button color="danger" size="sm" onClick={(e) => this.cancelCart(e)} block>Cancel</Button>
+                        </Row>
                     </Col>
                 </Row>
-
-                <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} >
-                    <ModalHeader>Edit Product</ModalHeader>
-                    <ModalBody>
-                        <Form method="POST" onSubmit={this.handleSubmit}>
-                            <FormGroup>
-                                <Label for="name">Product Name</Label>
-                                <Input type="name" name="name" id="name" placeholder="Name" value={this.state.productEdit.name} onChange={(e) => this.handleChange(e)} />
-                            </FormGroup>
-                            <FormGroup>
-                                <Label for="price">Price</Label>
-                                <Input type="number" name="price" id="price" placeholder="Price" value={this.state.productEdit.price} />
-                            </FormGroup>
-                            <FormGroup>
-                                <Label for="image">File Image</Label>
-                                <Input type="file" name="image" id="image" />
-                            </FormGroup>
-                            <FormGroup>
-                                <Label for="category">Category</Label>
-                                <Input type="select" name="category" id="category">
-                                    {this.state.category.map(item => (
-                                        <option key={item.id} value={item.id}>{item.name}</option>
-                                    ))}
-                                </Input>
-                            </FormGroup>
-                            <FormGroup>
-                                <Label for="description">Description</Label>
-                                <Input type="textarea" name="description" id="description" value={this.state.productEdit.description} />
-                            </FormGroup>
-                            <FormGroup>
-                                <Label for="quantity">Quantity</Label>
-                                <Input type="number" name="quantity" id="quantity" placeholder="Quantity" value={this.state.productEdit.quantity} />
-                            </FormGroup>
-                            <Button color="primary">Add Product</Button>
-                        </Form>
-                    </ModalBody>
-                </Modal>
 
                 {/* modal Checkout */}
 
@@ -376,11 +334,17 @@ class ContainerProducts extends Component {
                     <ModalHeader toggleCheckout={this.toggleCheckout}>Check Out</ModalHeader>
                     <ModalBody>
                         {productCheckout}
-                        Total Price Rp. {this.state.totalPrice}
+                        <Row className='font-weight-bold'>
+                            <Col xs='8'>
+                                Total Price
+                            </Col>
+                            <Col xs='4' className='text-right' >
+                                {rupiah.convert(this.state.totalPrice)}
+                            </Col>
+                        </Row>
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="primary" >Do Something</Button>{' '}
-                        <Button color="secondary" onClick={this.toggleCheckout}>Cancel</Button>
+                        <Button color="primary" onClick={this.toggleCheckout}>OK</Button>
                     </ModalFooter>
                 </Modal>
             </Container>
@@ -389,5 +353,11 @@ class ContainerProducts extends Component {
     }
 
 }
+const mapStateToProps = state => {
+    console.log(state.ProductsList)
+    return {
+        data: state.ProductsList,
+    }
+}
 
-export default ContainerProducts
+export default connect(mapStateToProps)(ContainerProducts)

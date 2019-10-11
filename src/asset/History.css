@@ -1,0 +1,49 @@
+
+.recentCard {
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    padding: 5px; 
+    margin-top: 20px;
+}
+.CardCol1 {
+    position: absolute;
+    height: 213px;
+    margin: 15px;
+    
+    background: linear-gradient(285.38deg, #FBB2B4 30.05%, rgba(255, 143, 178, 0) 133.19%);
+    box-shadow: 10px 15px 10px rgba(255, 143, 178, 0.25);
+    border-radius: 10px;
+    
+}
+.CardCol2 {
+    position: absolute;
+    height: 213px;
+    margin: 15px;
+    
+    background: linear-gradient(285.38deg, #29DFFF 30.05%, rgba(41, 223, 255, 0) 133.19%);
+    box-shadow: 10px 15px 10px rgba(41, 223, 255, 0.25);
+    border-radius: 10px;
+}
+.CardCol3 {
+    position: absolute;
+    height: 213px;
+    margin: 15px;
+    
+    background: linear-gradient(285.38deg, #AB84C8 30.05%, rgba(241, 201, 236, 0) 133.19%);
+    box-shadow: 10px 15px 10px rgba(211, 18, 185, 0.212);
+    border-radius: 10px;
+}
+
+.cardtext{
+    margin-top: 70px;
+}
+
+.selectYear{
+    width: 96px !important;
+    height: 36px !important;
+    background: #CECECE !important;
+    border-radius: 10px !important;
+    font-size: 15px !important;
+    margin-top: 10px;
+    margin-left: 80px;
+}
