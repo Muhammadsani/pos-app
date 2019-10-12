@@ -1,68 +1,65 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Point-of-Sales APP
 
-## Available Scripts
 
-In the project directory, you can run:
+---
 
-### `npm start`
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Pendahuluan
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+Point-of-Sales APP (POS-APP) adalah Frondend dari RESTFul API Point-of-Sales yang bisa digunakan oleh kasir untuk checkout barang dan ada beberapa fitur lainnya sepertu berikut:
+- Fungsi CRUD seperti menambah barang, melihat barang, edit informasi detail barang, dan menghapus barang. 
+- Memilih barang untuk dimasukkan ke keranjang checkout. 
+- Melihat barang yang terakhir di checkout
+- Melihat penghasil harian, mingguan, bulanan dan tahunan
+- Melihat grafik pendapatan harian, mingguan, bulanan dan tahunan
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Persyaratan Instalasi
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+- Node.js - Download dan Install [Node.js](https://nodejs.org/en/) - Librari untuk memudahkan pengembangan Aplikasi
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Nodemon - Download dan Install [Nodemon](https://nodemon.io/) - nodemon adalah tool untuk merestart secara automatis ketika ada file yang di edit.
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Instalasi
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Clone
+```bash
+$ git clone git@github.com:Muhammadsani/Poin-of-Sales.git
+$ cd Poin-of-Sales
+$ npm install
+```
+---
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Create Environment Variable
+```bash
+$ cp .env.example .env
+$ nano .env
+```
+---
+### Start Development
+```bash
+$ npm start
+```
+---
 
-## Learn More
+## Dependensi yang digunakan pada Development
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- [bcryptjs](#)
+- [body-parser](#)
+- [cors](#)
+- [dotenv](#)
+- [express](#)
+- [jsonwebtoken](#)
+- [morgan](#)
+- [multer](#)
+- [mysql](#)
+- etc.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+---
+## Documentation

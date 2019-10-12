@@ -20,7 +20,7 @@ class History extends Component {
             orderLastWeek: 0,
             totalOrder: 0,
             incomeToday: 0,
-            incomeyesterday:0,
+            incomeyesterday: 0,
             incomeInYear: 0,
             orderBy: 'day',
             chart: [],
@@ -56,14 +56,14 @@ class History extends Component {
                     allpage.push(i + 1)
                 }
                 this.setState({ allPage: allpage })
-                
+
             })
             .catch(err => {
                 console.log(err)
             })
 
     }
-    
+
     pageChange = async (page) => {
         await this.setState({ page: page })
         this.getOrder()
@@ -85,7 +85,7 @@ class History extends Component {
         this.setState({ totalOrder: total })
     }
 
-    getOrderInWeek= async () => {
+    getOrderInWeek = async () => {
         let total = 0
         await axios.get(`/product/getorderinweek`)
             .then(result => {
@@ -100,7 +100,7 @@ class History extends Component {
             })
     }
 
-    getOrderLastWeek= async () => {
+    getOrderLastWeek = async () => {
         let total = 0
         await axios.get(`/product/getorderlastweek`)
             .then(result => {
@@ -118,8 +118,8 @@ class History extends Component {
     getIncomeToday = async () => {
         await axios.get(`/product/getincometoday`)
             .then(result => {
-                let incomeToday= result.data.result[0].income?result.data.result[0].income: 0
-                this.setState({ incomeToday: incomeToday, incomeyesterday: result.data.result[0].incomeyesterday})
+                let incomeToday = result.data.result[0].income ? result.data.result[0].income : 0
+                this.setState({ incomeToday: incomeToday, incomeyesterday: result.data.result[0].incomeyesterday })
                 console.log(result.data.result[0].incomeyesterday)
                 console.log(incomeToday)
             })
@@ -151,7 +151,7 @@ class History extends Component {
         let orderBy = this.state.orderBy
         let label = []
         if (orderBy === 'day') {
-            label = [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+            label = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
         } else if (orderBy === 'week') {
             label = ['Week 1', 'Week 2', 'Week 3', 'Week 4',]
         } else {
@@ -214,13 +214,13 @@ class History extends Component {
                     <Col className="CardCol1">
                         <div className="cardtext">Today's Income
                             <h4>{rupiah.convert(this.state.incomeToday)}</h4>
-                            {Math.round(((this.state.incomeToday-this.state.incomeyesterday)/this.state.incomeyesterday)*100)}% Yesterday
+                            {Math.round(((this.state.incomeToday - this.state.incomeyesterday) / this.state.incomeyesterday) * 100)}% Yesterday
                         </div>
                     </Col>
                     <Col className="CardCol2">
                         <div className="cardtext">Orders
                             <h4>{this.state.orderInWeek}</h4>
-                            {Math.round(((this.state.orderInWeek-this.state.orderLastWeek)/this.state.orderLastWeek)*100)}% Last Week
+                            {Math.round(((this.state.orderInWeek - this.state.orderLastWeek) / this.state.orderLastWeek) * 100)}% Last Week
                         </div>
                     </Col>
                     <Col className="CardCol3">
@@ -254,8 +254,8 @@ class History extends Component {
                         <Pagination aria-label="Page navigation example">
                             {
                                 this.state.allPage.map(item => (
-                                    <PaginationItem key={item} active={item===this.state.page? true: false}> 
-                                        <PaginationLink className="font-weight-bold"   onClick={() => this.pageChange(item)}>
+                                    <PaginationItem key={item} active={item === this.state.page ? true : false}>
+                                        <PaginationLink className="font-weight-bold" onClick={() => this.pageChange(item)}>
                                             {item}
                                         </PaginationLink>
                                     </PaginationItem>
@@ -277,6 +277,19 @@ class History extends Component {
                             {orderlist}
                         </tbody>
                     </Table>
+                    <div className="nav justify-content-center mt-4">
+                        <Pagination aria-label="Page navigation example">
+                            {
+                                this.state.allPage.map(item => (
+                                    <PaginationItem key={item} active={item === this.state.page ? true : false}>
+                                        <PaginationLink className="font-weight-bold" onClick={() => this.pageChange(item)}>
+                                            {item}
+                                        </PaginationLink>
+                                    </PaginationItem>
+                                ))
+                            }
+                        </Pagination>
+                    </div>
                 </Row>
 
             </div>
