@@ -75,15 +75,26 @@ $ npm start
 
 ---
 ## Documentation
-####Login
+
+#### Login
 ![Image description](src/asset/ss/0.jpg)
-####List Product
+
+
+#### List Product
 ![Image description](src/asset/ss/2.jpg)
-####Add Product
+
+
+#### Add Product
 ![Image description](src/asset/ss/1.jpg)
-####Review Pendapatan
+
+
+#### Review Pendapatan
 ![Image description](src/asset/ss/3.jpg)
-####Grafik Penjualan
+
+
+#### Grafik Penjualan
 ![Image description](src/asset/ss/4.jpg)
-####Recent Order
+
+
+#### Recent Order
 ![Image description](src/asset/ss/5.jpg)
