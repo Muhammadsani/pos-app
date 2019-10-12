@@ -50,16 +50,40 @@ $ npm start
 
 ## Dependensi yang digunakan pada Development
 
-- [bcryptjs](#)
-- [body-parser](#)
-- [cors](#)
-- [dotenv](#)
-- [express](#)
-- [jsonwebtoken](#)
-- [morgan](#)
-- [multer](#)
-- [mysql](#)
+- [axios](#)
+- [bootstrap](#)
+- [chart.js](#)
+- [jquery](#)
+- [local-storage](#)
+- [mdbreact](#)
+- [moment](#)
+- [moment-timezone](#)
+- [react](#)
+- [react-chartjs-2](#)
+- [react-dom](#)
+- [react-icons](#)
+- [react-moment](#)
+- [react-redux](#)
+- [react-router-dom](#)
+- [react-scripts](#)
+- [reactstrap](#)
+- [redux](#)
+- [redux-logger](#)
+- [redux-promise-middleware](#)
+- [rupiah-format](#)
 - etc.
 
 ---
 ## Documentation
+####Login
+![Image description](src/asset/ss/0.jpg)
+####List Product
+![Image description](src/asset/ss/2.jpg)
+####Add Product
+![Image description](src/asset/ss/1.jpg)
+####Review Pendapatan
+![Image description](src/asset/ss/3.jpg)
+####Grafik Penjualan
+![Image description](src/asset/ss/4.jpg)
+####Recent Order
+![Image description](src/asset/ss/5.jpg)

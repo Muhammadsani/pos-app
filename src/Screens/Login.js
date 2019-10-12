@@ -44,9 +44,10 @@ class Login extends Component {
     render() {
         return (
             <Container fluid>
+
                 <Row>
                     <Col sm="12" md={{ size: 6, offset: 3 }}>
-
+                        <h1 align='center' style={{color: 'crimson'}}>Login</h1>
                         <Form>
                             <FormGroup row>
                                 <Label for="email" sm={2}>Email</Label>
@@ -63,7 +64,7 @@ class Login extends Component {
 
                             <FormGroup check row>
                                 <Col sm={{ size: 10, offset: 2 }}>
-                                    <Button onClick={() => this.login({ email: this.state.email, password: this.state.password })}>Login</Button>
+                                    <Button style={{backgroundColor:"crimson", border: '0'}} onClick={() => this.login({ email: this.state.email, password: this.state.password })}>Login</Button>
                                 </Col>
                             </FormGroup>
                         </Form>

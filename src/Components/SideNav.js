@@ -108,7 +108,7 @@ class SideNav extends Component {
 
                     <div>
                         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} >
-                            <ModalHeader>Modal title</ModalHeader>
+                            <ModalHeader>Add Product</ModalHeader>
                             <ModalBody>
                                 <Form method="POST" onSubmit={this.handleSubmit}>
                                     <FormGroup>
